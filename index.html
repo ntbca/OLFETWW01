@@ -342,11 +342,12 @@
         });
     };
 
-    function generateChecklist() {
+   function generateChecklist() {
         const typeId = document.getElementById('typeSelect').value;
         const resultBox = document.getElementById('resultBox');
         const checklistContainer = document.getElementById('checklistContainer');
         const feeHint = document.getElementById('feeHint');
+        const isProxy = document.getElementById('isProxy') ? document.getElementById('isProxy').checked : false;
 
         if (!typeId) {
             resultBox.style.display = 'none';
@@ -364,10 +365,24 @@
             feeHint.style.display = 'none';
         }
 
+        // 讀取原本的 docs 內容（會完整保留您先前修改過的所有文字和小字）
+        let currentDocs = [...selectedItem.docs];
+
+        // 若勾選「委託代理人申請」，則自動在最後追加 3 項
+        if (isProxy) {
+            const proxyDocs = [
+                '<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">委託書</a>',
+                '申請人身分證正反面影本或正本',
+                '代理人國民身分證正本'
+            ];
+            currentDocs = currentDocs.concat(proxyDocs);
+        }
+
         let html = '';
-        selectedItem.docs.forEach((doc, idx) => {
+        currentDocs.forEach((doc, idx) => {
+            const isProxyItem = isProxy && idx >= selectedItem.docs.length;
             html += `
-                <div class="checklist-item">
+                <div class="checklist-item ${isProxyItem ? 'proxy-added' : ''}">
                     <input type="checkbox" id="doc_${idx}">
                     <label class="checklist-text" for="doc_${idx}">
                         <strong>${doc}</strong>
@@ -378,6 +393,16 @@
 
         checklistContainer.innerHTML = html;
         resultBox.style.display = 'block';
+    }
+function resetForm() {
+        document.getElementById('typeSelect').value = '';
+        
+        // 重置時同步取消「委託代理人」的勾選
+        if (document.getElementById('isProxy')) {
+            document.getElementById('isProxy').checked = false;
+        }
+        
+        generateChecklist();
     }
 
     function copyChecklist() {
