@@ -225,6 +225,50 @@
             color: #999;
             margin-top: 24px;
         }
+        /* 委託代理人固定勾選區塊 */
+.proxy-option-box {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background-color: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.proxy-option-box:hover {
+    border-color: #005a9c;
+    background-color: #f1f5f9;
+}
+
+.proxy-option-box input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.proxy-option-box label {
+    margin-bottom: 0;
+    color: #1e293b;
+    font-size: 14.5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 代理人動態新增文件左側藍條樣式 */
+.checklist-item.proxy-added {
+    border-left: 4px solid #005a9c;
+    background-color: #fafbfd;
+}
+
+.checklist-text a {
+    color: #005a9c;
+    text-decoration: underline;
+    font-weight: bold;
+}
     </style>
 </head>
 <body>
@@ -240,7 +284,11 @@
         <select id="typeSelect" onchange="generateChecklist()">
             <option value="">-- 請選擇業別 --</option>
         </select>
-        
+        <!-- 固定勾選欄位：委託代理人申請 -->
+<div class="proxy-option-box">
+    <input type="checkbox" id="isProxy" onchange="generateChecklist()">
+    <label for="isProxy">委託代理人申請</label>
+</div>
         <div id="feeHint" class="fee-hint"></div>
     </div>
 
@@ -413,7 +461,8 @@ function resetForm() {
 
         let text = `【國稅局設籍文件檢核 - ${selectedText}】\n`;
         items.forEach(item => {
-            const title = item.querySelector('strong').innerText;
+           // 複製時自動取得純文字（會自動濾掉 HTML 標籤）
+const title = item.querySelector('strong').innerText;
             text += `☑ ${title}\n`;
         });
         
@@ -432,7 +481,8 @@ function resetForm() {
 
         let text = `【國稅局設籍文件檢核 - ${selectedText}】\n`;
         items.forEach(item => {
-            const title = item.querySelector('strong').innerText;
+            // 複製時自動取得純文字（會自動濾掉 HTML 標籤）
+const title = item.querySelector('strong').innerText;
             text += `☑ ${title}\n`;
         });
 
