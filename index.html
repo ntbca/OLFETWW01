@@ -290,21 +290,19 @@
     </div>
 
     <div class="form-group">
-    <label for="typeSelect">請選擇業別 (共 48 項)</label>
-    <select id="typeSelect" onchange="generateChecklist()">
-        <option value="">-- 請選擇業別 --</option>
-    </select>
-    
-    <!-- 固定勾選欄位：預設隱藏 (display: none)，有選項目才顯示 -->
-    <div id="proxyBox" class="proxy-option-box" style="display: none;">
-        <input type="checkbox" id="isProxy" onchange="generateChecklist()">
-        <label for="isProxy">委託代理人申請(委任辦理請勾選)</label>
-    </div>
+        <label for="typeSelect">請選擇業別 (共 48 項)</label>
+        <select id="typeSelect" onchange="generateChecklist()">
+            <option value="">-- 請選擇業別 --</option>
+        </select>
+        
+        <!-- 固定勾選欄位：預設隱藏 (display: none)，有選項目才顯示 -->
+        <div id="proxyBox" class="proxy-option-box" style="display: none;">
+            <input type="checkbox" id="isProxy" onchange="generateChecklist()">
+            <label for="isProxy">委託代理人申請(委任辦理請勾選)</label>
+        </div>
 
-    <div id="feeHint" class="fee-hint"></div>
-</div>
         <div id="feeHint" class="fee-hint"></div>
-    </div>
+    </div> <!-- 👈 1. 這裡只留一個關閉 form-group 的 div -->
 
     <div id="resultBox" class="result-box">
         <div class="result-title">📋 您的臨櫃應備文件檢核表：</div>
@@ -325,7 +323,9 @@
             <button class="btn btn-line" onclick="shareToLine()">💬 傳送到 LINE</button>
             <button class="btn btn-primary" onclick="resetForm()">🔄 重新查詢</button>
         </div>
-    </div>
+    </div> <!-- 👈 2. 這裡關閉 resultBox -->
+
+</div> <!-- 👈 3. 最底部補上這個 container 的關閉 div！ -->
 
     <div class="footer-note">
         如有疑問，請洽各地稅捐稽徵機關全功能服務櫃檯或撥免付費電話0800-000-321洽詢
