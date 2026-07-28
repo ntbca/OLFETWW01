@@ -287,7 +287,7 @@
         <!-- 固定勾選欄位：委託代理人申請 -->
 <div class="proxy-option-box">
     <input type="checkbox" id="isProxy" onchange="generateChecklist()">
-    <label for="isProxy">委託代理人申請</label>
+    <label for="isProxy">委託代理人申請(委任辦理請勾選)</label>
 </div>
         <div id="feeHint" class="fee-hint"></div>
     </div>
@@ -419,7 +419,7 @@
         // 若勾選「委託代理人申請」，則自動在最後追加 3 項
         if (isProxy) {
             const proxyDocs = [
-                '<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">委託書</a>',
+                '<a href="https://www.ntbca.gov.tw/singlehtml/9e1a1c0f403349ba8454516030e9131a?cntId=ac84807c9cf04c6393ea72e6bc3373ef#gsc.tab=0" target="_blank" rel="noopener noreferrer">委託書(點擊下載)</a>',
                 '申請人身分證正反面影本或正本',
                 '代理人國民身分證正本'
             ];
