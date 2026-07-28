@@ -490,13 +490,27 @@ function resetForm() {
 
         let text = `【國稅局設籍文件檢核 - ${selectedText}】\n`;
         items.forEach(item => {
-           // 複製時自動取得純文字（會自動濾掉 HTML 標籤）
-const title = item.querySelector('strong').innerText;
-            text += `☑ ${title}\n`;
+            const strong = item.querySelector('strong');
+            if (strong) {
+                // 建立臨時 div 解析內容與超連結
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = strong.innerHTML;
+
+                const links = tempDiv.querySelectorAll('a');
+                links.forEach(a => {
+                    const href = a.getAttribute('href');
+                    if (href) {
+                        a.replaceWith(`${a.innerText} ( 連結: ${href} )`);
+                    }
+                });
+
+                const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
+                text += `☑ ${formattedText}\n`;
+            }
         });
         
         navigator.clipboard.writeText(text).then(() => {
-            alert("已成功複製文件清單！");
+            alert("已成功複製文件清單（含超連結）！");
         }).catch(() => {
             alert("複製失敗，請手動選取複製。");
         });
@@ -510,9 +524,22 @@ const title = item.querySelector('strong').innerText;
 
         let text = `【國稅局設籍文件檢核 - ${selectedText}】\n`;
         items.forEach(item => {
-            // 複製時自動取得純文字（會自動濾掉 HTML 標籤）
-const title = item.querySelector('strong').innerText;
-            text += `☑ ${title}\n`;
+            const strong = item.querySelector('strong');
+            if (strong) {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = strong.innerHTML;
+
+                const links = tempDiv.querySelectorAll('a');
+                links.forEach(a => {
+                    const href = a.getAttribute('href');
+                    if (href) {
+                        a.replaceWith(`${a.innerText} ( 連結: ${href} )`);
+                    }
+                });
+
+                const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
+                text += `☑ ${formattedText}\n`;
+            }
         });
 
         const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
