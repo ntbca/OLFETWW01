@@ -492,7 +492,6 @@ function resetForm() {
         items.forEach(item => {
             const strong = item.querySelector('strong');
             if (strong) {
-                // 建立臨時 div 解析內容與超連結
                 const tempDiv = document.createElement('div');
                 tempDiv.innerHTML = strong.innerHTML;
 
@@ -500,10 +499,12 @@ function resetForm() {
                 links.forEach(a => {
                     const href = a.getAttribute('href');
                     if (href) {
-                        a.replaceWith(`${a.innerText} ( 連結: ${href} )`);
+                        // 將 <a> 標籤內容（不論原本是點選下載還是標題）直接替換成 ( 連結: 網址 )
+                        a.replaceWith(`( 連結: ${href} )`);
                     }
                 });
 
+                // 整理多餘空白並組合文字
                 const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
                 text += `☑ ${formattedText}\n`;
             }
@@ -533,7 +534,8 @@ function resetForm() {
                 links.forEach(a => {
                     const href = a.getAttribute('href');
                     if (href) {
-                        a.replaceWith(`${a.innerText} ( 連結: ${href} )`);
+                        // 將 <a> 標籤內容直接替換成 ( 連結: 網址 )
+                        a.replaceWith(`( 連結: ${href} )`);
                     }
                 });
 
