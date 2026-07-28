@@ -280,14 +280,18 @@
     </div>
 
     <div class="form-group">
-        <label for="typeSelect">請選擇業別 (共 48 項)</label>
-        <select id="typeSelect" onchange="generateChecklist()">
-            <option value="">-- 請選擇業別 --</option>
-        </select>
-        <!-- 固定勾選欄位：委託代理人申請 -->
-<div class="proxy-option-box">
-    <input type="checkbox" id="isProxy" onchange="generateChecklist()">
-    <label for="isProxy">委託代理人申請(委任辦理請勾選)</label>
+    <label for="typeSelect">請選擇業別 (共 48 項)</label>
+    <select id="typeSelect" onchange="generateChecklist()">
+        <option value="">-- 請選擇業別 --</option>
+    </select>
+    
+    <!-- 固定勾選欄位：預設隱藏 (display: none)，有選項目才顯示 -->
+    <div id="proxyBox" class="proxy-option-box" style="display: none;">
+        <input type="checkbox" id="isProxy" onchange="generateChecklist()">
+        <label for="isProxy">委託代理人申請(委任辦理請勾選)</label>
+    </div>
+
+    <div id="feeHint" class="fee-hint"></div>
 </div>
         <div id="feeHint" class="fee-hint"></div>
     </div>
@@ -390,68 +394,78 @@
         });
     };
 
-   function generateChecklist() {
-        const typeId = document.getElementById('typeSelect').value;
-        const resultBox = document.getElementById('resultBox');
-        const checklistContainer = document.getElementById('checklistContainer');
-        const feeHint = document.getElementById('feeHint');
-        const isProxy = document.getElementById('isProxy') ? document.getElementById('isProxy').checked : false;
+function generateChecklist() {
+    const typeId = document.getElementById('typeSelect').value;
+    const resultBox = document.getElementById('resultBox');
+    const checklistContainer = document.getElementById('checklistContainer');
+    const feeHint = document.getElementById('feeHint');
+    const proxyBox = document.getElementById('proxyBox');
+    const isProxy = document.getElementById('isProxy') ? document.getElementById('isProxy').checked : false;
 
-        if (!typeId) {
-            resultBox.style.display = 'none';
-            feeHint.style.display = 'none';
-            return;
-        }
-
-        const selectedItem = official48Items.find(x => x.id === typeId);
-        if (!selectedItem) return;
-
-        if (selectedItem.hint) {
-            feeHint.innerHTML = selectedItem.hint;
-            feeHint.style.display = 'block';
-        } else {
-            feeHint.style.display = 'none';
-        }
-
-        // 讀取原本的 docs 內容（會完整保留您先前修改過的所有文字和小字）
-        let currentDocs = [...selectedItem.docs];
-
-        // 若勾選「委託代理人申請」，則自動在最後追加 3 項
-        if (isProxy) {
-            const proxyDocs = [
-                '<a href="https://www.ntbca.gov.tw/singlehtml/9e1a1c0f403349ba8454516030e9131a?cntId=ac84807c9cf04c6393ea72e6bc3373ef#gsc.tab=0" target="_blank" rel="noopener noreferrer">委託書(點擊下載)</a>',
-                '申請人身分證正反面影本或正本',
-                '代理人國民身分證正本'
-            ];
-            currentDocs = currentDocs.concat(proxyDocs);
-        }
-
-        let html = '';
-        currentDocs.forEach((doc, idx) => {
-            const isProxyItem = isProxy && idx >= selectedItem.docs.length;
-            html += `
-                <div class="checklist-item ${isProxyItem ? 'proxy-added' : ''}">
-                    <input type="checkbox" id="doc_${idx}">
-                    <label class="checklist-text" for="doc_${idx}">
-                        <strong>${doc}</strong>
-                    </label>
-                </div>
-            `;
-        });
-
-        checklistContainer.innerHTML = html;
-        resultBox.style.display = 'block';
+    // 1. 若未選擇項目：隱藏代理人勾選框與結果區
+    if (!typeId) {
+        resultBox.style.display = 'none';
+        feeHint.style.display = 'none';
+        if (proxyBox) proxyBox.style.display = 'none';
+        return;
     }
+
+    // 2. 已選擇項目：顯示代理人勾選框
+    if (proxyBox) proxyBox.style.display = 'flex';
+
+    const selectedItem = official48Items.find(x => x.id === typeId);
+    if (!selectedItem) return;
+
+    if (selectedItem.hint) {
+        feeHint.innerHTML = selectedItem.hint;
+        feeHint.style.display = 'block';
+    } else {
+        feeHint.style.display = 'none';
+    }
+
+    // 3. 基礎必備文件：每一項最前面統一加上「申請書」與超連結
+    const formDoc = '<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">需填寫扣繳單位設立（變更）登記申請書-統一編號編配通知書（一式三份，請加蓋扣繳單位章及負責人章）</a>';
+    
+    // 將申請書放在最前頭，後面接該項目原有的文件清單
+    let currentDocs = [formDoc, ...selectedItem.docs];
+
+    // 4. 若勾選「委託代理人申請」，在最後面追加 3 項
+    if (isProxy) {
+        const proxyDocs = [
+            '<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">委託書</a>',
+            '申請人身分證正反面影本或正本',
+            '代理人國民身分證正本'
+        ];
+        currentDocs = currentDocs.concat(proxyDocs);
+    }
+
+    // 5. 渲染畫面
+    let html = '';
+    const baseDocsLength = selectedItem.docs.length + 1; // 原文件數 + 1(申請書)
+
+    currentDocs.forEach((doc, idx) => {
+        const isProxyItem = isProxy && idx >= baseDocsLength;
+        html += `
+            <div class="checklist-item ${isProxyItem ? 'proxy-added' : ''}">
+                <input type="checkbox" id="doc_${idx}">
+                <label class="checklist-text" for="doc_${idx}">
+                    <strong>${doc}</strong>
+                </label>
+            </div>
+        `;
+    });
+
+    checklistContainer.innerHTML = html;
+    resultBox.style.display = 'block';
+}
+
 function resetForm() {
-        document.getElementById('typeSelect').value = '';
-        
-        // 重置時同步取消「委託代理人」的勾選
-        if (document.getElementById('isProxy')) {
-            document.getElementById('isProxy').checked = false;
-        }
-        
-        generateChecklist();
+    document.getElementById('typeSelect').value = '';
+    if (document.getElementById('isProxy')) {
+        document.getElementById('isProxy').checked = false;
     }
+    generateChecklist(); // 會自動觸發隱藏代理人框與結果區
+}
 
     function copyChecklist() {
         const typeSelect = document.getElementById('typeSelect');
