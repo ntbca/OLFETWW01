@@ -465,67 +465,79 @@
     }
 
     function copyChecklist() {
-        const typeSelect = document.getElementById('typeSelect');
-        const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
-        const items = document.querySelectorAll('.checklist-item');
-        if (items.length === 0) return;
+    const typeSelect = document.getElementById('typeSelect');
+    const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
+    const items = document.querySelectorAll('.checklist-item');
+    if (items.length === 0) return;
 
-        let text = `【國稅局設籍文件檢核 - ${selectedText}】\n`;
-        items.forEach(item => {
-            const strong = item.querySelector('strong');
-            if (strong) {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = strong.innerHTML;
+    let text = `【國稅局設籍文件檢核 - ${selectedText}】\n\n`;
+    
+    items.forEach(item => {
+        const textContainer = item.querySelector('.checklist-text');
+        if (textContainer) {
+            // 複製一份 DOM 節點來處理，避免影響頁面顯示
+            const tempDiv = textContainer.cloneNode(true);
 
-                const links = tempDiv.querySelectorAll('a');
-                links.forEach(a => {
-                    const href = a.getAttribute('href');
-                    if (href) {
-                        a.replaceWith(` ( 連結: ${href} )`);
-                    }
-                });
+            // 1. 將超連結轉成 ( 連結: url )
+            const links = tempDiv.querySelectorAll('a');
+            links.forEach(a => {
+                const href = a.getAttribute('href');
+                if (href) {
+                    a.replaceWith(` ( 連結: ${href} )`);
+                }
+            });
 
-                const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
-                text += `✔ ${formattedText}\n`;
-            }
-        });
-        
-        navigator.clipboard.writeText(text).then(() => {
-            alert("已成功複製文件清單（含超連結）！");
-        }).catch(() => {
-            alert("複製失敗，請手動選取複製。");
-        });
-    }
+            // 2. 將 <br> 標籤明確替換成換行符號 \n
+            const brs = tempDiv.querySelectorAll('br');
+            brs.forEach(br => br.replaceWith('\n'));
 
-    function shareToLine() {
-        const typeSelect = document.getElementById('typeSelect');
-        const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
-        const items = document.querySelectorAll('.checklist-item');
-        if (items.length === 0) return;
+            // 3. 取得文字並進行格式整理
+            let itemText = tempDiv.innerText.trim();
+            
+            // 組合出「✔ 標題 \n 小字」的排版
+            text += `✔ ${itemText}\n`;
+        }
+    });
 
-        let text = `【國稅局設籍文件檢核 - ${selectedText}】\n`;
-        items.forEach(item => {
-            const strong = item.querySelector('strong');
-            if (strong) {
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = strong.innerHTML;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("已成功複製文件清單！");
+    }).catch(() => {
+        alert("複製失敗，請手動選取複製。");
+    });
+}
 
-                const links = tempDiv.querySelectorAll('a');
-                links.forEach(a => {
-                    const href = a.getAttribute('href');
-                    if (href) {
-                        a.replaceWith(` ( 連結: ${href} )`);
-                    }
-                });
+function shareToLine() {
+    const typeSelect = document.getElementById('typeSelect');
+    const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
+    const items = document.querySelectorAll('.checklist-item');
+    if (items.length === 0) return;
 
-                const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
-                text += `✔ ${formattedText}\n`;
-            }
-        });
+    let text = `【國稅局設籍文件檢核 - ${selectedText}】\n\n`;
 
-        const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
-        window.open(url, '_blank');
-    }
+    items.forEach(item => {
+        const textContainer = item.querySelector('.checklist-text');
+        if (textContainer) {
+            const tempDiv = textContainer.cloneNode(true);
+
+            const links = tempDiv.querySelectorAll('a');
+            links.forEach(a => {
+                const href = a.getAttribute('href');
+                if (href) {
+                    a.replaceWith(` ( 連結: ${href} )`);
+                }
+            });
+
+            const brs = tempDiv.querySelectorAll('br');
+            brs.forEach(br => br.replaceWith('\n'));
+
+            let itemText = tempDiv.innerText.trim();
+            text += `✔ ${itemText}\n`;
+        }
+    });
+
+    const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
+    window.open(url, '_blank');
+}
 </script>
 
 </body>
