@@ -439,7 +439,7 @@ function generateChecklist() {
     }
 
     // 3. 基礎必備文件：每一項最前面統一加上「申請書」與超連結
-    const formDoc = '<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">需填寫扣繳單位設立（變更）登記申請書-統一編號編配通知書（一式三份，請加蓋扣繳單位章及負責人章）</a>';
+    const formDoc = '需填寫扣繳單位設立（變更）登記申請書-統一編號編配通知書（一式三份，請加蓋扣繳單位章及負責人章）<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">（點選可至稅務入口網下載）</a>';
     
     // 將申請書放在最前頭，後面接該項目原有的文件清單
     let currentDocs = [formDoc, ...selectedItem.docs];
