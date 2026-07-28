@@ -111,18 +111,18 @@
             white-space: pre-line;
         }
 
-        /* 2. 強制讓結果區塊 100% 寬度（與選單同寬），並防範內容超出 */
+      
 .result-box {
-    width: 100%;
-    margin-top: 24px;
+    max-width: 800px;         /* 電腦版放寬到 800px，呈現舒適的大卡片視覺 */
+    width: 100%;              /* 手機版自動滿版 */
+    margin: 24px auto 0 auto; /* 置中並保留上方 24px 間距 */
     padding: 20px;
     border-radius: var(--border-radius);
     background-color: var(--primary-light);
     border: 1px solid #d0e1f0;
     display: none;
     animation: fadeIn 0.4s ease-in-out;
-    box-sizing: border-box; /* 確保 padding 算在 100% 寬度內 */
-    overflow: hidden; /* 防止內部超長連結把框撐爆 */
+    box-sizing: border-box;
 }
 
         @keyframes fadeIn {
@@ -159,12 +159,11 @@
             flex-shrink: 0;
         }
 
-        /* 3. 確保裡面的文字與超連結都不會跨出外框 */
-.checklist-text {
+        .checklist-text {
     font-size: 14.5px;
     cursor: pointer;
     width: 100%;
-    word-break: break-all;
+    word-break: break-all;     /* 強迫長網址自動換行 */
     overflow-wrap: break-word;
 }
 
@@ -190,12 +189,18 @@
         }
 
         .action-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
-        }
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+.action-group .btn {
+    flex: 1 1 200px; /* 手機版寬度不夠時會自動優雅折行 */
+}
 
+.action-group .btn-primary {
+    flex: 1 1 100%; /* 「重新查詢」按鈕獨佔一整列 */
+}
         .btn {
             padding: 14px;
             border: none;
