@@ -29,17 +29,16 @@
             padding: 16px;
         }
 
-        /* 1. 確保外層容器固定最大寬度，並且不要被子元素硬撐開 */
-.container {
-    max-width: 680px;
-    width: 100%;
-    margin: 0 auto;
-    background: #ffffff;
-    padding: 24px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    box-sizing: border-box; /* 確保 padding 不會撐大容器 */
-}
+        .container {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            box-sizing: border-box;
+        }
 
         .header {
             text-align: center;
@@ -111,19 +110,18 @@
             white-space: pre-line;
         }
 
-      
-.result-box {
-    max-width: 800px;         /* 電腦版放寬到 800px，呈現舒適的大卡片視覺 */
-    width: 100%;              /* 手機版自動滿版 */
-    margin: 24px auto 0 auto; /* 置中並保留上方 24px 間距 */
-    padding: 20px;
-    border-radius: var(--border-radius);
-    background-color: var(--primary-light);
-    border: 1px solid #d0e1f0;
-    display: none;
-    animation: fadeIn 0.4s ease-in-out;
-    box-sizing: border-box;
-}
+        .result-box {
+            max-width: 800px;
+            width: 100%;
+            margin: 24px auto 0 auto;
+            padding: 24px;
+            border-radius: var(--border-radius);
+            background-color: #e8f5e9; /* 圖中的淺綠底色 */
+            border: 1px solid #c8e6c9;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+            box-sizing: border-box;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -131,46 +129,55 @@
         }
 
         .result-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 16px;
-            border-bottom: 1px solid #d0e1f0;
-            padding-bottom: 8px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #c8e6c9;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
+        /* 移除卡片框框，改為純文字條列式 */
         .checklist-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 12px;
-            background: #ffffff;
-            padding: 14px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            padding: 12px 0;
+            border-bottom: 1px dashed #a5d6a7; /* 條列間的分隔虛線 */
         }
 
-        .checklist-item input[type="checkbox"] {
-            margin-right: 12px;
-            margin-top: 3px;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 10px;
+            line-height: 1.5;
             flex-shrink: 0;
         }
 
         .checklist-text {
-    font-size: 14.5px;
-    cursor: pointer;
-    width: 100%;
-    word-break: break-all;     /* 強迫長網址自動換行 */
-    overflow-wrap: break-word;
-}
+            font-size: 15px;
+            color: #1b5e20;
+            word-break: break-all;
+            overflow-wrap: break-word;
+            line-height: 1.6;
+        }
 
         .checklist-text strong {
-            display: block;
-            color: #1a1a1a;
-            line-height: 1.5;
+            font-weight: bold;
+            color: #1b5e20;
+        }
+
+        .checklist-text a {
+            color: #005a9c;
+            text-decoration: underline;
+            font-weight: bold;
         }
 
         .alert-info {
@@ -178,7 +185,7 @@
             border: 1px solid #fef3c7;
             padding: 16px;
             border-radius: 8px;
-            margin-top: 20px;
+            margin-top: 24px;
             font-size: 13px;
             color: #b45309;
         }
@@ -189,18 +196,20 @@
         }
 
         .action-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
-}
-.action-group .btn {
-    flex: 1 1 200px; /* 手機版寬度不夠時會自動優雅折行 */
-}
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
 
-.action-group .btn-primary {
-    flex: 1 1 100%; /* 「重新查詢」按鈕獨佔一整列 */
-}
+        .action-group .btn {
+            flex: 1 1 200px;
+        }
+
+        .action-group .btn-primary {
+            flex: 1 1 100%;
+        }
+
         .btn {
             padding: 14px;
             border: none;
@@ -220,7 +229,6 @@
         .btn-primary {
             background-color: var(--primary-color);
             color: white;
-            grid-column: span 2;
         }
 
         .btn-line {
@@ -229,9 +237,8 @@
         }
 
         .btn-copy {
-            background-color: #f1f5f9;
-            color: #334155;
-            border: 1px solid #cbd5e1;
+            background-color: #64748b;
+            color: white;
         }
 
         .footer-note {
@@ -240,50 +247,38 @@
             color: #999;
             margin-top: 24px;
         }
-        /* 委託代理人固定勾選區塊 */
-.proxy-option-box {
-    margin-top: 12px;
-    padding: 12px 16px;
-    background-color: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
 
-.proxy-option-box:hover {
-    border-color: #005a9c;
-    background-color: #f1f5f9;
-}
+        .proxy-option-box {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background-color: #f8fafc;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
-.proxy-option-box input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    margin-right: 10px;
-    cursor: pointer;
-}
+        .proxy-option-box:hover {
+            border-color: #005a9c;
+            background-color: #f1f5f9;
+        }
 
-.proxy-option-box label {
-    margin-bottom: 0;
-    color: #1e293b;
-    font-size: 14.5px;
-    cursor: pointer;
-    user-select: none;
-}
+        .proxy-option-box input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
 
-/* 代理人動態新增文件左側藍條樣式 */
-.checklist-item.proxy-added {
-    border-left: 4px solid #005a9c;
-    background-color: #fafbfd;
-}
-
-.checklist-text a {
-    color: #005a9c;
-    text-decoration: underline;
-    font-weight: bold;
-}
+        .proxy-option-box label {
+            margin-bottom: 0;
+            color: #1e293b;
+            font-size: 14.5px;
+            cursor: pointer;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -300,17 +295,17 @@
             <option value="">-- 請選擇業別 --</option>
         </select>
         
-        <!-- 固定勾選欄位：預設隱藏 (display: none)，有選項目才顯示 -->
+        <!-- 固定勾選欄位：預設隱藏，選擇後顯示 -->
         <div id="proxyBox" class="proxy-option-box" style="display: none;">
             <input type="checkbox" id="isProxy" onchange="generateChecklist()">
             <label for="isProxy">委託代理人申請(委託他人代辦請勾選)</label>
         </div>
 
         <div id="feeHint" class="fee-hint"></div>
-    </div> <!-- 👈 1. 這裡只留一個關閉 form-group 的 div -->
+    </div>
 
     <div id="resultBox" class="result-box">
-        <div class="result-title">📋 您的臨櫃應備文件檢核表：</div>
+        <div class="result-title">💼 臨櫃洽辦應檢核 / 攜帶書表清單：</div>
         
         <div id="checklistContainer"></div>
         
@@ -324,17 +319,15 @@
         </div>
 
         <div class="action-group">
-            <button class="btn btn-copy" onclick="copyChecklist()">📋 複製清單文字</button>
-            <button class="btn btn-line" onclick="shareToLine()">💬 傳送到 LINE</button>
+            <button class="btn btn-line" onclick="shareToLine()">💬 分享清單至 LINE</button>
+            <button class="btn btn-copy" onclick="copyChecklist()">💼 複製清單內容</button>
             <button class="btn btn-primary" onclick="resetForm()">🔄 重新查詢</button>
         </div>
-    </div> <!-- 👈 2. 這裡關閉 resultBox -->
-
-</div> <!-- 👈 3. 最底部補上這個 container 的關閉 div！ -->
-
-   <div class="footer-note">
-    如有疑問，請洽各地稅捐稽徵機關全功能服務櫃檯或撥免付費電話 <a href="tel:0800000321" style="color: #005a9c; font-weight: bold; text-decoration: underline;">0800-000-321</a> 洽詢。
+    </div>
 </div>
+
+<div class="footer-note">
+    如有疑問，請洽各地稅捐稽徵機關全功能服務櫃檯或撥免付費電話 <a href="tel:0800000321" style="color: #005a9c; font-weight: bold; text-decoration: underline;">0800-000-321</a> 洽詢。
 </div>
 
 <script>
@@ -342,12 +335,11 @@
     const STD_TAX = "所在地最近一期房屋稅單影本或房屋稅籍證明文件，如為承租房屋請加附租賃合約書影本";
     const STD_EXAM = "考試及格證書/開業執照/執業執照";
 
-    // 完全對照國稅局PDF一覽表（112.01修訂版）1~48項，所有文件均標註「影本」
     const official48Items = [
         { id: "1", name: "1. 律師或法律事務所", docs: [STD_EXAM, "公會核發之律師身分證明影本", STD_ID, STD_TAX], hint: "※ 事務所地址、電話、傳真異動者，應向公會陳報，取具「律師身分證明」文件。" },
         { id: "2", name: "2. 以合署方式經營之律師或法律事務所", docs: [STD_EXAM, "公會核發之律師身分證明影本", "合署契約書影本", "以合署方式經營之律師或法律事務所全體律師名冊影本", STD_ID, STD_TAX], hint: "※ 事務所中每位合署律師皆需分別編配統一編號。\n※ 扣繳單位名稱：「○○律師(或法律)事務所○○○律師」" },
         { id: "3", name: "3. 會計師事務所", docs: [STD_EXAM, "金融監督管理委員會(法人)或會計師公會全國聯合會(非法人)登錄核備文及事務所登錄事項表影本", STD_ID, STD_TAX], hint: "" },
-        { id: "4", name: "4. 合署會計師事務所", docs: [STD_EXAM, "會計師公會全國聯合會登錄核備文及事務所登錄事項表影本", "合署會計師事務所全體會計師名冊影本", STD_ID, STD_TAX], hint: "※ 事務所中每位合署會計師皆需分別編配統一編號。\n※扣繳單位名稱：「○○會計師事務所○○○會計師」（註：不強制加「合署」二字）" },
+        { id: "4", name: "4. 合署會計師事務所", docs: [STD_EXAM, "會計師公會全國聯合會登錄核備文及事務所登錄事項表影本", "合署會計師事務所全體會計師名冊影本", STD_ID, STD_TAX], hint: "※ 事務所中每位合署會計師皆需分別編配統一編號。\n※ 扣繳單位名稱：「○○會計師事務所○○○會計師」（註：不強制加「合署」二字）" },
         { id: "5", name: "5. 精算師事務所", docs: [STD_EXAM, STD_ID, STD_TAX], hint: "" },
         { id: "6", name: "6. 土地登記代理人事務所", docs: [STD_EXAM, "所轄市政府地政處登錄核備文影本", STD_ID, STD_TAX], hint: "※ 目前已不核發專業代理人證書。" },
         { id: "7", name: "7. 地政士事務所", docs: [STD_EXAM, "所轄市政府地政處登錄核備文影本", STD_ID, STD_TAX], hint: "" },
@@ -357,7 +349,7 @@
         { id: "11", name: "11. 記帳及報稅代理人事務所", docs: [STD_EXAM, "所轄國稅局核准登錄執業證明書影本", STD_ID, STD_TAX], hint: "※ 目前已不核發記帳及報稅代理人登錄執業證明書。" },
         { id: "12", name: "12. 記帳士事務所", docs: [STD_EXAM, "所轄國稅局核發之登錄(記)執行記帳士業務核准文影本", STD_ID, STD_TAX], hint: "" },
         { id: "13", name: "13. 醫師診所", docs: [STD_EXAM, "行政院衛生署或所轄市政府衛生局核發開業執照影本", STD_ID, STD_TAX], hint: "※主管機關在中央為行政院衛生署；在直轄市為直轄市政府；在縣（市）為縣（市）政府" },
-        { id: "14", name: "14. 獸醫診所", docs: [STD_EXAM, "行政院農委會或所轄市政府衛生局核發開業執照影本", STD_ID, STD_TAX], hint: "※主管機關在中央為行政院農業委員會；在直轄市為直轄市政府；在縣（市）為縣（市）政府15 國術館損傷技" },
+        { id: "14", name: "14. 獸醫診所", docs: [STD_EXAM, "行政院農委會或所轄市政府衛生局核發開業執照影本", STD_ID, STD_TAX], hint: "※主管機關在中央為行政院農業委員會；在直轄市為直轄市政府；在縣（市）為縣（市）政府" },
         { id: "15", name: "15. 國術館損傷技術員", docs: [STD_EXAM, STD_ID, STD_TAX], hint: "" },
         { id: "16", name: "16. 補習班", docs: ["教育局核准設立公文及立案證書影本", STD_ID, STD_TAX], hint: "" },
         { id: "17", name: "17. 幼兒園", docs: ["教育局核准設立公文及立案證書影本", STD_ID, STD_TAX], hint: "" },
@@ -374,29 +366,24 @@
         { id: "28", name: "28. 財團法人", docs: ["法院核備之設立公文及法人登記證書影本", STD_ID, STD_TAX], hint: "" },
         { id: "29", name: "29. 保險經紀人事務所", docs: [STD_EXAM, "考試及格證書、執業證照影本", STD_ID, STD_TAX], hint: "※保險經紀人管理規則第3條：經紀人非依本規則取得執業證照，不得經營或執行執業。\n※保險經紀人管理規則第7條：具備本規則所定經紀人資格……得以個人名義、……於取得執業證照後執行業務。\n※保險經紀人管理規則第8條：個人執業經紀人應檢附下列文件，向主管機關辦理許可登記：……" },
         { id: "30", name: "30. 保險代理人事務所", docs: [STD_EXAM, "考試及格證書、執業證照影本", STD_ID, STD_TAX], hint: "※保險代理人規則第3條：代理人非依本規則取得執業證照，不得經營或執行執業。\n※保險代理人管理規則第7條：具備本規則所定代理人資格……得以個人名義、……於取得執業證照後執行業務。\n※保險代理人管理規則第8條：個人執業代理人應檢附下列文件，向主管機關辦理許可登記：……" },
-        { id: "31", name: "31. 商標代理人", docs: [ STD_ID, STD_TAX], hint: "" },
+        { id: "31", name: "31. 商標代理人", docs: [STD_ID, STD_TAX], hint: "" },
         { id: "32", name: "32. 專利代理人事務所", docs: [STD_EXAM, "智產局專利代理人登錄證明/報備文件影本", STD_ID, STD_TAX], hint: "※ 負責人需具備專利代理人資格。" },
         { id: "33", name: "33. 專利師事務所", docs: [STD_EXAM, "智產局專利師登錄事項證明影本", STD_ID, STD_TAX], hint: "※ 負責人需具備專利師資格。" },
         { id: "34", name: "34. 民間公證人", docs: [STD_EXAM, "地方法院報備核准函影本", "加入同業公會文件影本", STD_ID, STD_TAX], hint: "※應就已成年之中華民國國民具有下列資格之一者適任之：\n1.經民間公證人考試及格者 \n2.曾任法官、檢察官，經銓敘合格者 \n3.曾任公設辯護人，經銓敘合格者 \n4.曾任法院之公證人，經銓敘合格，或曾任民間公證人者 \n5.經高等考試律師考試及格，並執行律師業務3年以者" },
-        { id: "35", name: "35. 破產財團(破產管理人)", docs: [STD_EXAM+ "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>破產管理人之職業執照</span>",
-"各地地方法院民事裁定書影本", STD_ID, STD_TAX], hint: "※扣繳單位為法院裁定之破產財團\n※負責人為法院裁定之破產管理人（以破產管理人之戶籍地為扣繳單位設籍地）" },
-        { id: "36", name: "36. 表演人", docs: [STD_EXAM+ "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>表演工作證</span>", STD_ID, STD_TAX], hint: "※ 扣繳單位名稱：「○○○表演人」" },
+        { id: "35", name: "35. 破產財團(破產管理人)", docs: [STD_EXAM + "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>破產管理人之職業執照</span>", "各地地方法院民事裁定書影本", STD_ID, STD_TAX], hint: "※扣繳單位為法院裁定之破產財團\n※負責人為法院裁定之破產管理人（以破產管理人之戶籍地為扣繳單位設籍地）" },
+        { id: "36", name: "36. 表演人", docs: [STD_EXAM + "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>表演工作證</span>", STD_ID, STD_TAX], hint: "※ 扣繳單位名稱：「○○○表演人」" },
         { id: "37", name: "37. 祭祀公業", docs: ["所轄區公所核准設立公文影本", "派下員名冊影本", "派下員系統表影本", "不動產清冊影本", STD_ID, STD_TAX], hint: "※ 有祠堂者向祠堂所在地國稅局申請\n※無祠堂者向管理人戶籍地申請。" },
         { id: "38", name: "38. 本國銀行受託保管外國公司投資信託基金專戶", docs: ["本國銀行營業執照影本", "金融監督管理委員會核准函影本", STD_ID, STD_TAX], hint: "" },
         { id: "39", name: "39. 保管機構受託保管外國人(含外國法人)投資專戶", docs: ["保管機構營業執照影本", "委託書影本(需附中文譯本)", "臺灣證券交易所核發「境外華僑及外國人完成登記證明」影本", STD_ID, STD_TAX], hint: "※ 由臺灣證券交易所於發證時一併編配國稅局統一編號。" },
         { id: "40", name: "40. 保管機構受託保管大陸地區投資人投資專戶", docs: ["保管機構營業執照影本", "委託書影本(需附中文譯本)", "臺灣證券交易所核發「大陸地區投資人完成登記證明」影本", STD_ID, STD_TAX], hint: "※ 由臺灣證券交易所於發證時一併編配國稅局統一編號。" },
         { id: "41", name: "41. 外國營利事業在臺未設分支機構僅設辦事處", docs: ["經濟部核准設立公文影本", STD_ID, STD_TAX], hint: "※ 以經濟部核准之「公司在臺灣地區指派之訴訟及非訴訟代理人」為在臺負責人。" },
         { id: "42", name: "42. 外國營利事業投資國內未上市、櫃股票在臺開立新臺幣帳戶", docs: ["投審會核准文影本", "外國法人資格證明文件影本", "外國法人負責人身分證明文件影本", "經當地民間公證人公、認證出具之授權書影本(需附中文譯本)", "在臺代理人身分證明文件影本", STD_ID], hint: "※向在臺代理人或代表人之戶籍所在地國稅局各分局、稽徵所編配統一編號。\n※依華僑及外國人投資證券管理辦法第10條 及臺灣證券交易所股份有限公司營業細則第77條之4 規定，外國營利事業投資國內上市、櫃股票，應依本表序號39規定辦理。" },
-        { id: "43", name: "43. 海外企業在臺申請第一上市(櫃)或登錄興櫃", docs: ["證券主管機關核准上市(櫃)或同意興櫃登錄核准函影本", "代理人出具經我國駐外單位認證之海外企業授權書影本(需附中文譯本)", "經我國駐外單位認證之海外企業負責人身分證明文件影本", "在臺代理人身分證明文件影本", STD_ID,STD_TAX
-+ "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>外國營利事業在臺有設籍地址，需檢附房屋稅單影本，如為承租，請加附租賃契約影本。</span>"]
-, hint: "※負責人及扣繳義務人均填海外企業之負責人，若在台無設籍地址則填海外企業所在國地址，房屋稅籍編號除縣市別為英文代碼外，數字欄均填9。\n※海外營利事業在臺有設籍地址，則向該址之國稅局各分局、稽徵所編配統一編號；若無，則向在臺代理人或代表人戶籍所在地國稅局各分局、稽徵所辦理" },
-        { id: "44", name: "44. 海外企業之海外法人股東在臺開立新臺幣帳戶", docs: ["海外企業在中華民國委任之專業代理機構出具股票持有證明書正本（註：此項依規定需正本）", "主管機關核准海外企業上市(櫃)或同意興櫃登錄之核准函影本", "經我國駐外單位認證之法人股東依註冊國法律組織登記且有效存在之證明文件影本", "經我國駐外單位認證之法人股東委託代理人之授權書影本(需附中文譯本)", "經我國駐外單位認證之法人股東負責人身分證明文件影本", "在臺代理人之身分證明文件影本", STD_ID,STD_TAX
-+ "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>海外企業之海外法人股東在臺有設籍地址，需檢附房屋稅單影本，如為承租，請加附租賃契約影本。</span>"]
-, hint: "※負責人及扣繳義務人均填海外法人股東之負責人，地址填海外法人股東所在國地址，房屋稅籍編號除縣市別為英文代碼外，數字欄均填9。\n※海外企業之海外法人股東，在臺有設籍地址，則向該址之國稅局各分局、稽徵所編配統一編號；若無，則向在臺代理人或代表人戶籍所在地國稅局各分局、稽徵所辦理，向在臺代理人或代表人戶籍所在地國稅局各分局、稽徵所辦理" },
+        { id: "43", name: "43. 海外企業在臺申請第一上市(櫃)或登錄興櫃", docs: ["證券主管機關核准上市(櫃)或同意興櫃登錄核准函影本", "代理人出具經我國駐外單位認證之海外企業授權書影本(需附中文譯本)", "經我國駐外單位認證之海外企業負責人身分證明文件影本", "在臺代理人身分證明文件影本", STD_ID, STD_TAX + "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>外國營利事業在臺有設籍地址，需檢附房屋稅單影本，如為承租，請加附租賃契約影本。</span>"], hint: "※負責人及扣繳義務人均填海外企業之負責人，若在台無設籍地址則填海外企業所在國地址，房屋稅籍編號除縣市別為英文代碼外，數字欄均填9。\n※海外營利事業在臺有設籍地址，則向該址之國稅局各分局、稽徵所編配統一編號；若無，則向在臺代理人或代表人戶籍所在地國稅局各分局、稽徵所辦理" },
+        { id: "44", name: "44. 海外企業之海外法人股東在臺開立新臺幣帳戶", docs: ["海外企業在中華民國委任之專業代理機構出具股票持有證明書正本（註：此項依規定需正本）", "主管機關核准海外企業上市(櫃)或同意興櫃登錄之核准函影本", "經我國駐外單位認證之法人股東依註冊國法律組織登記且有效存在之證明文件影本", "經我國駐外單位認證之法人股東委託代理人之授權書影本(需附中文譯本)", "經我國駐外單位認證之法人股東負責人身分證明文件影本", "在臺代理人之身分證明文件影本", STD_ID, STD_TAX + "<br><span style='font-size: 12px; color: #666; font-weight: normal;'>海外企業之海外法人股東在臺有設籍地址，需檢附房屋稅單影本，如為承租，請加附租賃契約影本。</span>"], hint: "※負責人及扣繳義務人均填海外法人股東之負責人，地址填海外法人股東所在國地址，房屋稅籍編號除縣市別為英文代碼外，數字欄均填9。\n※海外企業之海外法人股東，在臺有設籍地址，則向該址之國稅局各分局、稽徵所編配統一編號；若無，則向在臺代理人或代表人戶籍所在地國稅局各分局、稽徵所辦理，向在臺代理人或代表人戶籍所在地國稅局各分局、稽徵所辦理" },
         { id: "45", name: "45. 已參與發行海外存託憑證公司因辦理分割減資致海外存託憑證持有人持有國內未上市公司股票", docs: ["金管會核准分割減資公文影本", "存託機構指定之國內代理人營業執照影本", "存託機構指定之國內代理人之負責人、扣繳義務人及代理人身分證影本", "存託機構指定之國內代理人所在地最近1期房屋稅單影本", STD_ID, STD_TAX], hint: "※ 扣繳單位名稱：「存託機構受託XXX公司因分割致海外存託憑證持有人取得XXX公司股票集合專戶」" },
         { id: "46", name: "46. 信託專戶-專案核准案件/一般信託案件", docs: ["專案核准案件：主管機關專案核准信託基金文件影本", "一般非專案案件：信託契約書影本", STD_ID], hint: "※ 專案核准案件每案編配一個統一編號；非專案案件每一受託人編配一個統一編號。" },
         { id: "47", name: "47. 信託專戶-私募基金案件", docs: ["董事會議事錄影本", "投資說明書影本", "證券投資信託契約書影本", STD_ID], hint: "※ 扣繳單位名稱：投資說明書載明之基金登記名稱。" },
-        { id: "48", name: "48. 證券商經營財富管理帳戶/現金管理專戶", docs: ["金管會核准文件影本", "證券商許可證照影本", "中華民國證券商業同業公會會員證書影本", "財富或現金管理契約書影本",  STD_TAX], hint: "※ 扣繳單位名稱：「○○證券商之客戶財富管理帳戶/○○證券商之客戶現金管理專戶」" }
+        { id: "48", name: "48. 證券商經營財富管理帳戶/現金管理專戶", docs: ["金管會核准文件影本", "證券商許可證照影本", "中華民國證券商業同業公會會員證書影本", "財富或現金管理契約書影本", STD_TAX], hint: "※ 扣繳單位名稱：「○○證券商之客戶財富管理帳戶/○○證券商之客戶現金管理專戶」" }
     ];
 
     window.onload = function() {
@@ -409,78 +396,74 @@
         });
     };
 
-function generateChecklist() {
-    const typeId = document.getElementById('typeSelect').value;
-    const resultBox = document.getElementById('resultBox');
-    const checklistContainer = document.getElementById('checklistContainer');
-    const feeHint = document.getElementById('feeHint');
-    const proxyBox = document.getElementById('proxyBox');
-    const isProxy = document.getElementById('isProxy') ? document.getElementById('isProxy').checked : false;
+    function generateChecklist() {
+        const typeId = document.getElementById('typeSelect').value;
+        const resultBox = document.getElementById('resultBox');
+        const checklistContainer = document.getElementById('checklistContainer');
+        const feeHint = document.getElementById('feeHint');
+        const proxyBox = document.getElementById('proxyBox');
+        const isProxy = document.getElementById('isProxy') ? document.getElementById('isProxy').checked : false;
 
-    // 1. 若未選擇項目：隱藏代理人勾選框與結果區
-    if (!typeId) {
-        resultBox.style.display = 'none';
-        feeHint.style.display = 'none';
-        if (proxyBox) proxyBox.style.display = 'none';
-        return;
+        // 1. 若未選擇項目：隱藏
+        if (!typeId) {
+            resultBox.style.display = 'none';
+            feeHint.style.display = 'none';
+            if (proxyBox) proxyBox.style.display = 'none';
+            return;
+        }
+
+        // 2. 顯示代理人選項
+        if (proxyBox) proxyBox.style.display = 'flex';
+
+        const selectedItem = official48Items.find(x => x.id === typeId);
+        if (!selectedItem) return;
+
+        if (selectedItem.hint) {
+            feeHint.innerHTML = selectedItem.hint;
+            feeHint.style.display = 'block';
+        } else {
+            feeHint.style.display = 'none';
+        }
+
+        // 3. 基礎必備文件：統一加上「申請書」
+        const formDoc = '需填寫扣繳單位設立（變更）登記申請書-統一編號編配通知書（一式三份，請加蓋扣繳單位章及負責人章）<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">（點選可至稅務入口網下載）</a>';
+        
+        let currentDocs = [formDoc, ...selectedItem.docs];
+
+        // 4. 若勾選「委託代理人申請」，追加代理人文件
+        if (isProxy) {
+            const proxyDocs = [
+                '申請人（或委託人）授權委託書正本<a href="https://www.ntbca.gov.tw/singlehtml/9e1a1c0f403349ba8454516030e9131a?cntId=ac84807c9cf04c6393ea72e6bc3373ef#gsc.tab=0" target="_blank" rel="noopener noreferrer">（點選可至稅務入口網下載）</a>',
+                '申請人身分證正反面影本或正本',
+                '代理人國民身分證正本'
+            ];
+            currentDocs = currentDocs.concat(proxyDocs);
+        }
+
+        // 5. 渲染條列式畫面（採用 ✔ 符號，不加框框）
+        let html = '';
+        currentDocs.forEach((doc) => {
+            html += `
+                <div class="checklist-item">
+                    <span class="check-icon">✔</span>
+                    <div class="checklist-text">
+                        <strong>${doc}</strong>
+                    </div>
+                </div>
+            `;
+        });
+
+        checklistContainer.innerHTML = html;
+        resultBox.style.display = 'block';
     }
 
-    // 2. 已選擇項目：顯示代理人勾選框
-    if (proxyBox) proxyBox.style.display = 'flex';
-
-    const selectedItem = official48Items.find(x => x.id === typeId);
-    if (!selectedItem) return;
-
-    if (selectedItem.hint) {
-        feeHint.innerHTML = selectedItem.hint;
-        feeHint.style.display = 'block';
-    } else {
-        feeHint.style.display = 'none';
+    function resetForm() {
+        document.getElementById('typeSelect').value = '';
+        if (document.getElementById('isProxy')) {
+            document.getElementById('isProxy').checked = false;
+        }
+        generateChecklist();
     }
-
-    // 3. 基礎必備文件：每一項最前面統一加上「申請書」與超連結
-    const formDoc = '需填寫扣繳單位設立（變更）登記申請書-統一編號編配通知書（一式三份，請加蓋扣繳單位章及負責人章）<a href="https://www.etax.nat.gov.tw/etwmain/etw212w/detail/5091161354246138343" target="_blank" rel="noopener noreferrer">（點選可至稅務入口網下載）</a>';
-    
-    // 將申請書放在最前頭，後面接該項目原有的文件清單
-    let currentDocs = [formDoc, ...selectedItem.docs];
-
-    // 4. 若勾選「委託代理人申請」，在最後面追加 3 項
-    if (isProxy) {
-        const proxyDocs = [
-            '申請人（或委託人）授權委託書正本<a href="https://www.ntbca.gov.tw/singlehtml/9e1a1c0f403349ba8454516030e9131a?cntId=ac84807c9cf04c6393ea72e6bc3373ef#gsc.tab=0" target="_blank" rel="noopener noreferrer">（點選可至稅務入口網下載）</a>',
-            '申請人身分證正反面影本或正本',
-            '代理人國民身分證正本'
-        ];
-        currentDocs = currentDocs.concat(proxyDocs);
-    }
-
-    // 5. 渲染畫面
-    let html = '';
-    const baseDocsLength = selectedItem.docs.length + 1; // 原文件數 + 1(申請書)
-
-    currentDocs.forEach((doc, idx) => {
-        const isProxyItem = isProxy && idx >= baseDocsLength;
-        html += `
-            <div class="checklist-item ${isProxyItem ? 'proxy-added' : ''}">
-                <input type="checkbox" id="doc_${idx}">
-                <label class="checklist-text" for="doc_${idx}">
-                    <strong>${doc}</strong>
-                </label>
-            </div>
-        `;
-    });
-
-    checklistContainer.innerHTML = html;
-    resultBox.style.display = 'block';
-}
-
-function resetForm() {
-    document.getElementById('typeSelect').value = '';
-    if (document.getElementById('isProxy')) {
-        document.getElementById('isProxy').checked = false;
-    }
-    generateChecklist(); // 會自動觸發隱藏代理人框與結果區
-}
 
     function copyChecklist() {
         const typeSelect = document.getElementById('typeSelect');
@@ -499,14 +482,12 @@ function resetForm() {
                 links.forEach(a => {
                     const href = a.getAttribute('href');
                     if (href) {
-                        // 將 <a> 標籤內容（不論原本是點選下載還是標題）直接替換成 ( 連結: 網址 )
-                        a.replaceWith(`( 連結: ${href} )`);
+                        a.replaceWith(` ( 連結: ${href} )`);
                     }
                 });
 
-                // 整理多餘空白並組合文字
                 const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
-                text += `☑ ${formattedText}\n`;
+                text += `✔ ${formattedText}\n`;
             }
         });
         
@@ -534,23 +515,17 @@ function resetForm() {
                 links.forEach(a => {
                     const href = a.getAttribute('href');
                     if (href) {
-                        // 將 <a> 標籤內容直接替換成 ( 連結: 網址 )
-                        a.replaceWith(`( 連結: ${href} )`);
+                        a.replaceWith(` ( 連結: ${href} )`);
                     }
                 });
 
                 const formattedText = tempDiv.innerText.replace(/\s+/g, ' ').trim();
-                text += `☑ ${formattedText}\n`;
+                text += `✔ ${formattedText}\n`;
             }
         });
 
         const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
         window.open(url, '_blank');
-    }
-
-    function resetForm() {
-        document.getElementById('typeSelect').value = '';
-        generateChecklist();
     }
 </script>
 
