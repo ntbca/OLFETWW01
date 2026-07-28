@@ -29,14 +29,17 @@
             padding: 16px;
         }
 
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 24px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
+        /* 1. 確保外層容器固定最大寬度，並且不要被子元素硬撐開 */
+.container {
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 24px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    box-sizing: border-box; /* 確保 padding 不會撐大容器 */
+}
 
         .header {
             text-align: center;
@@ -108,15 +111,19 @@
             white-space: pre-line;
         }
 
-        .result-box {
-            margin-top: 24px;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            background-color: var(--primary-light);
-            border: 1px solid #d0e1f0;
-            display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
+        /* 2. 強制讓結果區塊 100% 寬度（與選單同寬），並防範內容超出 */
+.result-box {
+    width: 100%;
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-light);
+    border: 1px solid #d0e1f0;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+    box-sizing: border-box; /* 確保 padding 算在 100% 寬度內 */
+    overflow: hidden; /* 防止內部超長連結把框撐爆 */
+}
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -152,11 +159,11 @@
             flex-shrink: 0;
         }
 
-        .checklist-text {
+        /* 3. 確保裡面的文字與超連結都不會跨出外框 */
+.checklist-text {
     font-size: 14.5px;
     cursor: pointer;
     width: 100%;
-    /* 👇 新增下面這兩行，強迫超長網址自動斷行 */
     word-break: break-all;
     overflow-wrap: break-word;
 }
