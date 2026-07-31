@@ -208,10 +208,6 @@
             flex: 1 1 200px;
         }
 
-        .action-group .btn-primary {
-            flex: 1 1 100%;
-        }
-
         .btn {
             padding: 15px;
             border: none;
@@ -230,11 +226,6 @@
 
         .btn-primary {
             background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-line {
-            background-color: #06c755;
             color: white;
         }
 
@@ -321,7 +312,6 @@
         </div>
 
         <div class="action-group">
-            <button class="btn btn-line" onclick="shareToLine()">💬 分享清單至 LINE</button>
             <button class="btn btn-copy" onclick="copyChecklist()">💼 複製清單內容</button>
             <button class="btn btn-primary" onclick="resetForm()">🔄 重新查詢</button>
         </div>
@@ -348,7 +338,7 @@
         { id: "8", name: "8. 不動產估價師事務所", docs: [STD_EXAM, "所轄市政府地政處登錄核備文影本", STD_ID, STD_TAX], hint: "" },
         { id: "9", name: "9. 技師事務所", docs: [STD_EXAM, "行政院公共工程委員會登錄核備文影本", STD_ID, STD_TAX], hint: "" },
         { id: "10", name: "10. 建築師事務所", docs: [STD_EXAM, "所轄市政府工務局建管處核准立案證書影本", STD_ID, STD_TAX], hint: "" },
-        { id: "11", name: "11. 記帳及報稅代理人事務所", docs: [STD_EXAM, "所轄國稅局核准登錄執業證明書影本", STD_ID, STD_TAX], hint: "※ 目前已不核發記帳及報稅代理人登錄執業證明書。" },
+        { id: "11", name: "11. 記帳及報稅代理人事務所", docs: [STD_EXAM, "所轄國稅局核準登錄執業證明書影本", STD_ID, STD_TAX], hint: "※ 目前已不核發記帳及報稅代理人登錄執業證明書。" },
         { id: "12", name: "12. 記帳士事務所", docs: [STD_EXAM, "所轄國稅局核發之登錄(記)執行記帳士業務核准文影本", STD_ID, STD_TAX], hint: "" },
         { id: "13", name: "13. 醫師診所", docs: [STD_EXAM, "行政院衛生署或所轄市政府衛生局核發開業執照影本", STD_ID, STD_TAX], hint: "※主管機關在中央為行政院衛生署；在直轄市為直轄市政府；在縣（市）為縣（市）政府" },
         { id: "14", name: "14. 獸醫診所", docs: [STD_EXAM, "行政院農委會或所轄市政府衛生局核發開業執照影本", STD_ID, STD_TAX], hint: "※主管機關在中央為行政院農業委員會；在直轄市為直轄市政府；在縣（市）為縣（市）政府" },
@@ -375,7 +365,7 @@
         { id: "35", name: "35. 破產財團(破產管理人)", docs: [STD_EXAM + "<br><span style='font-size: 15px; color: #555; font-weight: normal;'>破產管理人之職業執照</span>", "各地地方法院民事裁定書影本", STD_ID, STD_TAX], hint: "※扣繳單位為法院裁定之破產財團\n※負責人為法院裁定之破產管理人（以破產管理人之戶籍地為扣繳單位設籍地）" },
         { id: "36", name: "36. 表演人", docs: [STD_EXAM + "<br><span style='font-size: 15px; color: #555; font-weight: normal;'>表演工作證</span>", STD_ID, STD_TAX], hint: "※ 扣繳單位名稱：「○○○表演人」" },
         { id: "37", name: "37. 祭祀公業", docs: ["所轄區公所核准設立公文影本", "派下員名冊影本", "派下員系統表影本", "不動產清冊影本", STD_ID, STD_TAX], hint: "※ 有祠堂者向祠堂所在地國稅局申請\n※無祠堂者向管理人戶籍地申請。" },
-        { id: "38", name: "38. 本國銀行受託保管外國公司投資信託基金專戶", docs: ["本國銀行營業執照影本", "金融監督管理委員會核准函影本", STD_ID, STD_TAX], hint: "" },
+        { id: "38", name: "38. 本國銀行受託保管外國公司投資信託基金專戶", docs: ["本國銀行營業執照影本", "金融監督管理委員會核準函影本", STD_ID, STD_TAX], hint: "" },
         { id: "39", name: "39. 保管機構受託保管外國人(含外國法人)投資專戶", docs: ["保管機構營業執照影本", "委託書影本(需附中文譯本)", "臺灣證券交易所核發「境外華僑及外國人完成登記證明」影本", STD_ID, STD_TAX], hint: "※ 由臺灣證券交易所於發證時一併編配國稅局統一編號。" },
         { id: "40", name: "40. 保管機構受託保管大陸地區投資人投資專戶", docs: ["保管機構營業執照影本", "委託書影本(需附中文譯本)", "臺灣證券交易所核發「大陸地區投資人完成登記證明」影本", STD_ID, STD_TAX], hint: "※ 由臺灣證券交易所於發證時一併編配國稅局統一編號。" },
         { id: "41", name: "41. 外國營利事業在臺未設分支機構僅設辦事處", docs: ["經濟部核准設立公文影本", STD_ID, STD_TAX], hint: "※ 以經濟部核准之「公司在臺灣地區指派之訴訟及非訴訟代理人」為在臺負責人。" },
@@ -465,79 +455,46 @@
     }
 
     function copyChecklist() {
-    const typeSelect = document.getElementById('typeSelect');
-    const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
-    const items = document.querySelectorAll('.checklist-item');
-    if (items.length === 0) return;
+        const typeSelect = document.getElementById('typeSelect');
+        const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
+        const items = document.querySelectorAll('.checklist-item');
+        if (items.length === 0) return;
 
-    let text = `【國稅局設籍文件檢核 - ${selectedText}】\n\n`;
-    
-    items.forEach(item => {
-        const textContainer = item.querySelector('.checklist-text');
-        if (textContainer) {
-            // 複製一份 DOM 節點來處理，避免影響頁面顯示
-            const tempDiv = textContainer.cloneNode(true);
+        let text = `【國稅局設籍文件檢核 - ${selectedText}】\n\n`;
+        
+        items.forEach(item => {
+            const textContainer = item.querySelector('.checklist-text');
+            if (textContainer) {
+                // 複製一份 DOM 節點來處理，避免影響頁面顯示
+                const tempDiv = textContainer.cloneNode(true);
 
-            // 1. 將超連結轉成 ( 連結: url )
-            const links = tempDiv.querySelectorAll('a');
-            links.forEach(a => {
-                const href = a.getAttribute('href');
-                if (href) {
-                    a.replaceWith(` ( 連結: ${href} )`);
-                }
-            });
+                // 1. 將超連結轉成 ( 連結: url )
+                const links = tempDiv.querySelectorAll('a');
+                links.forEach(a => {
+                    const href = a.getAttribute('href');
+                    if (href) {
+                        a.replaceWith(` ( 連結: ${href} )`);
+                    }
+                });
 
-            // 2. 將 <br> 標籤明確替換成換行符號 \n
-            const brs = tempDiv.querySelectorAll('br');
-            brs.forEach(br => br.replaceWith('\n'));
+                // 2. 將 <br> 標籤明確替換成換行符號 \n
+                const brs = tempDiv.querySelectorAll('br');
+                brs.forEach(br => br.replaceWith('\n'));
 
-            // 3. 取得文字並進行格式整理
-            let itemText = tempDiv.innerText.trim();
-            
-            // 組合出「✔ 標題 \n 小字」的排版
-            text += `✔ ${itemText}\n`;
-        }
-    });
+                // 3. 取得文字並進行格式整理
+                let itemText = tempDiv.innerText.trim();
+                
+                // 組合出「✔ 標題 \n 小字」的排版
+                text += `✔ ${itemText}\n`;
+            }
+        });
 
-    navigator.clipboard.writeText(text).then(() => {
-        alert("已成功複製文件清單！");
-    }).catch(() => {
-        alert("複製失敗，請手動選取複製。");
-    });
-}
-
-function shareToLine() {
-    const typeSelect = document.getElementById('typeSelect');
-    const selectedText = typeSelect.options[typeSelect.selectedIndex].text;
-    const items = document.querySelectorAll('.checklist-item');
-    if (items.length === 0) return;
-
-    let text = `【國稅局設籍文件檢核 - ${selectedText}】\n\n`;
-
-    items.forEach(item => {
-        const textContainer = item.querySelector('.checklist-text');
-        if (textContainer) {
-            const tempDiv = textContainer.cloneNode(true);
-
-            const links = tempDiv.querySelectorAll('a');
-            links.forEach(a => {
-                const href = a.getAttribute('href');
-                if (href) {
-                    a.replaceWith(` ( 連結: ${href} )`);
-                }
-            });
-
-            const brs = tempDiv.querySelectorAll('br');
-            brs.forEach(br => br.replaceWith('\n'));
-
-            let itemText = tempDiv.innerText.trim();
-            text += `✔ ${itemText}\n`;
-        }
-    });
-
-    const url = "https://line.me/R/msg/text/?" + encodeURIComponent(text);
-    window.open(url, '_blank');
-}
+        navigator.clipboard.writeText(text).then(() => {
+            alert("已成功複製文件清單！");
+        }).catch(() => {
+            alert("複製失敗，請手動選取複製。");
+        });
+    }
 </script>
 
 </body>
